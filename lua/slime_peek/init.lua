@@ -12,7 +12,6 @@ M.opts = {
 -- Setup with options
 function M.setup(opts)
     M.opts = vim.tbl_extend("force", M.opts, opts or {})
-    lang.setup(M.opts)
 end
 
 --- Extract text from the last operator/motion range
@@ -61,7 +60,7 @@ M._command = nil
 -- send it to the REPL. Does not return anything; errors are handled upstream.
 -- Uses states specified in `_use_operator` and `_command`.
 function M._send_command_to_repl()
-    local language = lang.get_file_language()
+    local language = lang.get_file_language(M.opts.use_yaml_language)
     -- Get the text to send either from the word under the cursor or a
     -- user-specified operator/motion
     local text

@@ -2,16 +2,6 @@ local M = {}
 
 local util = require("slime_peek.util")
 
--- Default configuration (can be overridden by main setup call)
-M.opts = {
-    use_yaml_language = false,
-}
-
--- Setup with options
-function M.setup(opts)
-    M.opts = vim.tbl_extend("force", M.opts, opts or {})
-end
-
 --- Get chunk language
 -- Check if cursor is inside a code chunk as well as parses and returns the
 -- language when this is the case.
@@ -109,8 +99,10 @@ end
 
 --- Get language for current file
 -- Check the current filetype and gets the corresponding language as appropriate
+-- @param use_yaml_language whether to use the Quarto YAML header for language
+-- detection instead of the current code chunk's language
 -- @return language
-function M.get_file_language()
+function M.get_file_language(use_yaml_language)
     -- Access the filetype of the current buffer
     local filetype = vim.bo.filetype
 
@@ -120,7 +112,7 @@ function M.get_file_language()
     elseif filetype == "python" then
         return "python"
     elseif filetype == "quarto" then
-        if M.opts.use_yaml_language then
+        if use_yaml_language then
             return get_yaml_language()
         else
             return get_chunk_language()
