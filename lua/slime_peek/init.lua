@@ -124,13 +124,6 @@ function M.peek_help()
     peek_command("help", false)
 end
 
-vim.api.nvim_create_user_command("PeekHead", M.peek_head, { desc = "Print the head of a word" })
-vim.api.nvim_create_user_command("PeekTail", M.peek_tail, { desc = "Print the tail of a word" })
-vim.api.nvim_create_user_command("PeekNames", M.peek_names, { desc = "Print the column names of a word" })
-vim.api.nvim_create_user_command("PeekDims", M.peek_dims, { desc = "Print the dimensions of a word" })
-vim.api.nvim_create_user_command("PeekTypes", M.peek_types, { desc = "Print the column types of a word" })
-vim.api.nvim_create_user_command("PeekHelp", M.peek_help, { desc = "Print the help pages of a word" })
-
 -- User-facing functions (operator/motion mode)
 function M.peek_head_motion()
     peek_command("head", true)
@@ -150,12 +143,5 @@ end
 function M.peek_help_motion()
     peek_command("help", true)
 end
-
-vim.api.nvim_create_user_command("PeekHeadMotion", M.peek_head_motion, { desc = "Print the head of a motion" })
-vim.api.nvim_create_user_command("PeekTailMotion", M.peek_tail_motion, { desc = "Print the tail of a motion" })
-vim.api.nvim_create_user_command("PeekNamesMotion", M.peek_names_motion, { desc = "Print the column names of a motion" })
-vim.api.nvim_create_user_command("PeekDimsMotion", M.peek_dims_motion, { desc = "Print the dimensions of a motion" })
-vim.api.nvim_create_user_command("PeekTypesMotion", M.peek_types_motion, { desc = "Print the column types of a motion" })
-vim.api.nvim_create_user_command("PeekHelpMotion", M.peek_help_motion, { desc = "Print the help pages of a motion" })
 
 return M
