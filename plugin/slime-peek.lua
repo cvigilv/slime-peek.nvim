@@ -3,8 +3,10 @@ if vim.g.loaded_slime_peek then
 end
 vim.g.loaded_slime_peek = 1
 
-if vim.fn.has("nvim-0.7.0") ~= 1 then
-    vim.api.nvim_err_writeln("slime-peek.nvim requires at least Neovim v0.7.0.")
+-- 0.11.0 is required because `health.lua` uses `vim.health.start/ok/warn/
+-- error`, which aren't available on older versions
+if vim.fn.has("nvim-0.11.0") ~= 1 then
+    vim.api.nvim_err_writeln("slime-peek.nvim requires at least Neovim v0.11.0.")
     return
 end
 

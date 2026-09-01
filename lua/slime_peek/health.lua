@@ -12,10 +12,10 @@ local known_opts = {
 function M.check()
     vim.health.start("slime-peek.nvim")
 
-    if vim.fn.has("nvim-0.7.0") == 1 then
-        vim.health.ok("Neovim version is >= 0.7.0")
+    if vim.fn.has("nvim-0.11.0") == 1 then
+        vim.health.ok("Neovim version is >= 0.11.0")
     else
-        vim.health.error("Neovim version is too old", "slime-peek.nvim requires at least Neovim v0.7.0")
+        vim.health.error("Neovim version is too old", "slime-peek.nvim requires at least Neovim v0.11.0")
     end
 
     if vim.fn.exists(":SlimeSend0") == 2 then

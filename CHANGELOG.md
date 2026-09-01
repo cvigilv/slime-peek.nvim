@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1] - 2026-09-01
+
+### Fixed
+
+- Documented and enforced minimum Neovim version raised from 0.7.0 to
+  0.11.0, to match what `health.lua` (added in 1.2.0) actually requires:
+  `vim.health.start/ok/warn/error` aren't available on older versions.
+
 ## [1.2.0] - 2026-09-01
 
 ### Added

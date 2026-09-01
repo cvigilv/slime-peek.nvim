@@ -19,7 +19,7 @@ https://github.com/user-attachments/assets/33bbf53f-597a-4f07-b8a2-32db9061b7ed
 
 ## 📚 Requirements
 
-- Neovim >= **0.7.0**
+- Neovim >= **0.11.0**
 - The [vim-slime](https://github.com/jpalardy/vim-slime) Vim plugin
 
 ## 📦 Installation
