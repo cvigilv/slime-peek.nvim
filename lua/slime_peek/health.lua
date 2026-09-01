@@ -5,10 +5,10 @@ local known_opts = {
     use_yaml_language = true,
 }
 
---- Run slime-peek's healthcheck
--- Report on the presence of the plugin's requirements: a recent enough
--- Neovim version, the `vim-slime` dependency, and flag any unrecognised
--- configuration key set via `setup()`.
+---Run slime-peek's healthcheck
+---Report on the presence of the plugin's requirements: a recent enough
+---Neovim version, the `vim-slime` dependency, and flag any unrecognised
+---configuration key set via `setup()`.
 function M.check()
     vim.health.start("slime-peek.nvim")
 

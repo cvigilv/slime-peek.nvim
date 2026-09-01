@@ -1,11 +1,11 @@
 local M = {}
 
---- Handle R-specific commands
--- Handle differing operation names between R and Python as well as whether the
--- operation is a non-trivial function call with extra code.
--- @param operation the operation to perform
--- @param object the object to perform the operation on
--- @return a string with the complete command
+---Handle R-specific commands
+---Handle differing operation names between R and Python as well as whether the
+---operation is a non-trivial function call with extra code.
+---@param operation string the operation to perform
+---@param object string the object to perform the operation on
+---@return string command the complete command
 function M.get_r_command(operation, object)
     local extra = ""
     if operation == "dtypes" then
@@ -15,13 +15,13 @@ function M.get_r_command(operation, object)
     return operation .. "(" .. object .. extra .. ")\\n"
 end
 
---- Handle Python-specific commands
--- Handle differing operation names between R and Python as well as whether the
--- command pertains to an attribute (without parentheses) or a method (with
--- parentheses)
--- @param operation the operation to perform
--- @object object the object to perform the operation on
--- @return a string with the complete command
+---Handle Python-specific commands
+---Handle differing operation names between R and Python as well as whether the
+---command pertains to an attribute (without parentheses) or a method (with
+---parentheses)
+---@param operation string the operation to perform
+---@param object string the object to perform the operation on
+---@return string command the complete command
 function M.get_python_command(operation, object)
     if operation == "help" then
         return operation .. "(" .. object .. ")\\n"

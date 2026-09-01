@@ -2,10 +2,10 @@ local M = {}
 
 local util = require("slime_peek.util")
 
---- Get chunk language
--- Check if cursor is inside a code chunk as well as parses and returns the
--- language when this is the case.
--- @return language
+---Get chunk language
+---Check if cursor is inside a code chunk as well as parses and returns the
+---language when this is the case.
+---@return string|nil language
 local function get_chunk_language()
     -- Find a chunk start (header) backwards from the cursor position; if it
     -- can't be found the cursor is outside a chunk at the beginning of the file
@@ -39,10 +39,10 @@ local function get_chunk_language()
     end
 end
 
---- Get YAML header language
--- Check that the YAML header exists, is properly formatted and contains a
--- language specification; return the language if this is the case.
--- @return language
+---Get YAML header language
+---Check that the YAML header exists, is properly formatted and contains a
+---language specification; return the language if this is the case.
+---@return string|nil language
 local function get_yaml_language()
     -- Store the current cursor position and set the cursor position to the
     -- beginning of the file, so that we can search for the YAML header
@@ -97,11 +97,11 @@ local function get_yaml_language()
     end
 end
 
---- Get language for current file
--- Check the current filetype and gets the corresponding language as appropriate
--- @param use_yaml_language whether to use the Quarto YAML header for language
--- detection instead of the current code chunk's language
--- @return language
+---Get language for current file
+---Check the current filetype and gets the corresponding language as appropriate
+---@param use_yaml_language boolean|nil whether to use the Quarto YAML header for
+---language detection instead of the current code chunk's language
+---@return string|nil language
 function M.get_file_language(use_yaml_language)
     -- Access the filetype of the current buffer
     local filetype = vim.bo.filetype

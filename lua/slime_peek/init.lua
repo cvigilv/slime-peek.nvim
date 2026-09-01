@@ -4,12 +4,17 @@ local commands = require("slime_peek.commands")
 local lang = require("slime_peek.lang")
 local util = require("slime_peek.util")
 
--- Default configuration
+---@class slime_peek.Opts
+---@field use_yaml_language? boolean
+
+---Default configuration
+---@type slime_peek.Opts
 M.opts = {
     use_yaml_language = false,
 }
 
--- Setup with options and validation
+---Setup with options and validation
+---@param opts slime_peek.Opts|nil
 function M.setup(opts)
     opts = opts or {}
     vim.validate({
@@ -19,10 +24,10 @@ function M.setup(opts)
     M.opts = vim.tbl_extend("force", M.opts, opts)
 end
 
---- Extract text from the last operator/motion range
--- Extract the text given by the last user-specified operation/motion that is
--- meant to be sent to the REPL.
--- @return a string with the selected text
+---Extract text from the last operator/motion range
+---Extract the text given by the last user-specified operation/motion that is
+---meant to be sent to the REPL.
+---@return string text the selected text
 local function get_text_from_operator_range()
     -- Get the positions of the start and end of the last operator/motion
     -- The `getpos()` function returns {bufnum, lnum, col, off}
@@ -52,18 +57,20 @@ local function get_text_from_operator_range()
     return string.sub(line, start_col, end_col)
 end
 
---- Initialise states
--- All states are changed in the user-facing functions; `_use_operator` is a
--- boolean, while valid values for `_command` is specified by the user-facing
--- functions.
+---Initialise states
+---All states are changed in the user-facing functions; `_use_operator` is a
+---boolean, while valid values for `_command` is specified by the user-facing
+---functions.
+---@type boolean
 M._use_operator = false
+---@type string|nil
 M._command = nil
 
---- Send commands to the REPL
--- Get the text to be sent (either the word under the cursor or the text
--- specified by the last operator/motion), the file language and the command and
--- send it to the REPL. Does not return anything; errors are handled upstream.
--- Uses states specified in `_use_operator` and `_command`.
+---Send commands to the REPL
+---Get the text to be sent (either the word under the cursor or the text
+---specified by the last operator/motion), the file language and the command and
+---send it to the REPL. Does not return anything; errors are handled upstream.
+---Uses states specified in `_use_operator` and `_command`.
 function M._send_command_to_repl()
     local language = lang.get_file_language(M.opts.use_yaml_language)
     -- Get the text to send either from the word under the cursor or a
@@ -87,18 +94,20 @@ function M._send_command_to_repl()
     end
 end
 
---- Send commands to the REPL using operator mode
--- Get the text from the user-specified operator/motion rather than the word
--- under the cursor.
+---Send commands to the REPL using operator mode
+---Get the text from the user-specified operator/motion rather than the word
+---under the cursor.
 local function send_command_to_repl_with_operator()
     vim.o.operatorfunc = "v:lua.require'slime_peek'._send_command_to_repl"
     vim.api.nvim_feedkeys("g@", "n", false)
 end
 
---- Helper function for user-facing functions
--- Reduce code duplication by having all individual per-command user-facing
--- functions call this function with the correct command and whether to use
--- operator mode.
+---Helper function for user-facing functions
+---Reduce code duplication by having all individual per-command user-facing
+---functions call this function with the correct command and whether to use
+---operator mode.
+---@param command string the operation to send to the REPL
+---@param use_operator boolean whether to use operator/motion mode
 local function peek_command(command, use_operator)
     M._use_operator = use_operator
     M._command = command
