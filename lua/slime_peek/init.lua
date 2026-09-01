@@ -9,9 +9,14 @@ M.opts = {
     use_yaml_language = false,
 }
 
--- Setup with options
+-- Setup with options and validation
 function M.setup(opts)
-    M.opts = vim.tbl_extend("force", M.opts, opts or {})
+    opts = opts or {}
+    vim.validate({
+        opts = { opts, "table" },
+        ["opts.use_yaml_language"] = { opts.use_yaml_language, "boolean", true },
+    })
+    M.opts = vim.tbl_extend("force", M.opts, opts)
 end
 
 --- Extract text from the last operator/motion range
