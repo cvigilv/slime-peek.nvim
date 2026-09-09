@@ -32,7 +32,7 @@ local function get_chunk_language()
     -- Parse the chunk header and find the specified language
     local chunk_header = vim.fn.getline(start_backward)
     local language = chunk_header:match("^```{([%a]+)")
-    if language == "julia" or language == "python" or language == "r" then
+    if language == "python" or language == "r" or language == "julia" then
         return language
     else
         return util.raise_error("Quarto language '" .. language .. "' is not supported")

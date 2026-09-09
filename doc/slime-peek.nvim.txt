@@ -16,10 +16,10 @@
  1. INTRODUCTION      				    *slime-peek.introduction*
 
  The aim of this plugin is to add convenience functions for data exploration
- tasks when using `vim-slime` with Julia, Python, and R, such as quickly
+ tasks when using `vim-slime` with Python, R and Julia, such as quickly
  peeking at the head or column names of a data frame.
 
- The plugin detects Julia, Python, and R scripts, R Markdown, and Quarto
+ The plugin detects Python, R and Julia scripts, R Markdown, and Quarto
  documents.
 
  For scripts and R Markdown documents, the language is inferred from the file
@@ -50,64 +50,61 @@
  mode and wait for the user to supply a motion or a text object before sending
  the final text to the REPL.
 
- For Julia, operations like `peek_head` translate to functions such as
- `first(<text>, 5)`. For Python, they translate to attribute or method
- accesses such as `<text>.head()`. For R, they translate to functions such as
- `head(<text>)`. See each function for details.
+ For Python, operations like `peek_head` translate to attribute or method
+ accesses such as `<text>.head()`. The equivalent is `head(<text>)` for R and
+ `first(<text>, 5)` for Julia; see each function for details.
 
  peek_head                                            *slime-peek.peek_head*
  peek_head_motion                              *slime-peek.peek_head_motion*
 
    Send the "head" operation with some text to the REPL.
 
-   Julia:  `first(<text>, 5)`
    Python: `<text>.head()`
    R:      `head(<text>)`
+   Julia:  `first(<text>, 5)`
 
  peek_tail                                            *slime-peek.peek_tail*
  peek_tail_motion                              *slime-peek.peek_tail_motion*
 
    Send the "tail" operation with some text to the REPL.
 
-   Julia:  `last(<text>, 5)`
    Python: `<text>.tail()`
    R:      `tail(<text>)`
+   Julia:  `last(<text>, 5)`
 
  peek_names                                          *slime-peek.peek_names*
  peek_names_motion                            *slime-peek.peek_names_motion*
 
    Send the "column names" operation with some text to the REPL.
 
-   Julia:  `names(<text>)`
    Python: `<text>.columns.tolist()`
    R:      `names(<text>)`
+   Julia:  `names(<text>)`
 
  peek_dims                                            *slime-peek.peek_dims*
  peek_dims_motion                              *slime-peek.peek_dims_motion*
 
    Send the "object dimensions" operation with some text to the REPL.
 
-   Julia:  `size(<text>)`
    Python: `<text>.shape`
    R:      `dim(<text>)`
-
+   Julia:  `size(<text>)`
  peek_types                                          *slime-peek.peek_types*
  peek_types_motion                            *slime-peek.peek_types_motion*
 
    Send the "data types/classes" operation with some text to the REPL.
 
-   Julia:  `eltype.(eachcol(<text>))`
    Python: `<text>.dtypes`
    R:      `sapply(<text>, class)`
-
+   Julia:  `eltype.(eachcol(<text>))`
  peek_help                                            *slime-peek.peek_help*
  peek_help_motion                              *slime-peek.peek_help_motion*
 
    Send the "help" operation with some text to the REPL.
 
-   Julia:  `@doc <text>`
    Python: `help(<text>)`
    R:      `help(<text>)`
+   Julia:  `@doc <text>`
 
    The output of this may be paginated depending on your terminal settings, so
    you might also need to either move to the REPL and press `q` to exit the
